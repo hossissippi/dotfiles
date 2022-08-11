@@ -1,55 +1,40 @@
+let $LANG='en_US.UTF-8'
 "" texのconcealを無効化（#^ω^）
 let g:tex_conceal=''
-" 背景透過
-augroup TransparentBG
-  	autocmd!
-	autocmd Colorscheme * highlight Normal ctermbg=none
-	autocmd Colorscheme * highlight NonText ctermbg=none
-	autocmd Colorscheme * highlight LineNr ctermbg=none
-	autocmd Colorscheme * highlight Folded ctermbg=none
-	autocmd Colorscheme * highlight EndOfBuffer ctermbg=none 
-augroup END
+
+nnoremap Y y$
 
 tnoremap <C-j> <C-\><C-n>
 tnoremap <C-[> <C-\><C-n>
+
+" nmap <C-j> :bp<CR>
+" nmap <C-k> :bn<CR>
+
 set inccommand=split
 
-"set guicursor=a:blinkon0    " カーソルの点滅なし
-set guicursor=
-set linespace=1             " 行間隔
-" set columns=180             " ウインドウ幅
-" set lines=57                " ウインドウ高
-set cmdheight=2             " コマンドライン幅
-set guioptions-=T           " ツールバー消去
-set guioptions-=m           " メニューバー非表示
-set display=lastline        " 長い行を省略せずに表示する
-set pumheight=10            " 補完リストの高さ
+set linespace=1
+set cmdheight=2
+set display=lastline
+set pumheight=10
 set number
-set laststatus=2            " Powerline のため
-"set notitle                 " タイトルなし
-"set shortmess+=I            " タイトルなし
+set laststatus=2
 
-" set iminsert=0 imsearch=0                     " 挿入モード・検索モードでのデフォルトのIME状態設定
-set expandtab                                 " タブ入力時に自動的にスペースに変える
-set tabstop=2                                 " 1タブの幅
-set softtabstop=2                             " 1タブ当たりの半角スペースの個数 (通常入力時)
-set shiftwidth=2                              " 1タブ当たりの半角スペースの個数 (コマンドや自動インデント)
-"set clipboard=unnamed                         " クリップボード
-set autoindent                                " 自動的にインデントする (noautoindent:インデントしない)
-set clipboard=unnamed,unnamedplus             " firefox, xterm への S-Insert でのペーストが出来た (ginit.vim あり)
-"set backspace=indent,eol,start                " バックスペースでインデントや改行を削除できるようにする
+set guifont=DroidSansMono\ Nerd\ Font
+
+" set iminsert=0 imsearch=0
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set clipboard=unnamed,unnamedplus
 set showmatch
-set matchtime=1                     " 入力時対応する括弧に飛ぶ。表示時間 ＝ 0.1 * matchtime (秒)
-set wildmenu                                  " コマンドライン補完するときに強化されたものを使う(参照 :help wildmenu)
-set nobackup                                  " バックアップファイルを作成しない
+set matchtime=1
+set nobackup
 set noswapfile
 set viminfo=
-"set noundofile                                " undoファイル (*.un~) を作成しない
-" set undodir=$HOME/.config/nvim/undo
-" Y を y$ と同じにする。(ノーマルモード・再割り当て無し) 
-nnoremap Y y$
-set scrolloff=5                               " スクロールする時に下が見えるようにする
-set wildmenu                                  " コマンドライン補完するときに強化されたものを使う
+set scrolloff=5
+set wildmenu
 set virtualedit=block
 
 "検索語が画面の真ん中に来るようにする
@@ -60,6 +45,8 @@ nmap # #zz
 nmap g* g*zz 
 nmap g# g#zz
 
+let mapleader = "\<Space>"
+
 inoremap <silent> jj <ESC>
 
 " 編集中のファイルが変更されたら自動で読み直す
@@ -69,83 +56,191 @@ set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
 
-" 見た目系
-" 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
-" インデントはスマートインデント
+" 行末の1文字先までカーソルを移動できる
+set virtualedit+=onemore
+" スマートインデント
 set smartindent
 " ビープ音を可視化
 set visualbell
 " コマンドラインの補完
 set wildmode=list:longest
-" 折り返し時に表示行単位での移動できるようにする
+" 表示行単位での移動
 nnoremap j gj
 nnoremap k gk
 
 " 検索系
-" 検索文字列が小文字の場合は大文字小文字を区別なく検索する
+" 検索文字列が小文字の場合は大文字小文字を区別しない
 set ignorecase
-" 検索文字列に大文字が含まれている場合は区別して検索する
+" 検索文字列に大文字が含まれている場合は大文字小文字を区別
 set smartcase
 " 検索文字列入力時に順次対象文字列にヒットさせる
 set incsearch
 " 検索時に最後まで行ったら最初に戻る
 set wrapscan
-" 検索語をハイライト表示
+" 検索語をハイライト表示する
 set hlsearch
-" ESC連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 
+set completeopt=menuone
 
-" call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0}) 
-" call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1}) 
+call plug#begin()
 
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+" 
+Plug 'machakann/vim-highlightedyank'
+" highlightedyank
+let g:highlightedyank_highlight_duration = 500
+let g:highlightedyank_max_lines = 1000
+let g:highlightedyank_timeout = 500
+
+" vim-surround
+Plug 'machakann/vim-sandwich'
+
+" f拡張
+Plug 'rhysd/clever-f.vim'
+let g:clever_f_ignore_case = 1
+let g:clever_f_smart_case = 1
+let g:clever_f_use_migemo = 1
+let g:clever_f_across_no_line = 1
+let g:clever_f_fix_key_direction = 1
+let g:clever_f_chars_match_any_signs = ';'
+
+Plug 'haya14busa/vim-edgemotion'
+map <C-j> <Plug>(edgemotion-j)
+map <C-k> <Plug>(edgemotion-k)
+
+Plug 'vim-scripts/ReplaceWithRegister'
+
+" テキストオブジェクト拡張
+Plug 'wellle/targets.vim'
+
+" カーソル位置の単語で検索
+Plug 'thinca/vim-visualstar'
+
+" *
+Plug 'thinca/vim-visualstar'
+let g:asterisk#keeppos = 1
+map g* <Plug>(asterisk-z*)
+map g# <Plug>(asterisk-z#)
+map * <Plug>(asterisk-gz*)
+
+" yankring
+Plug 'bfredl/nvim-miniyank'
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+map <leader>p <Plug>(miniyank-startput)
+map <leader>P <Plug>(miniyank-startPut)
+map <Leader>n <Plug>(miniyank-cycle)
+map <Leader>N <Plug>(miniyank-cycleback)
+
+" emmet
+Plug 'mattn/emmet-vim'
+
+" VSCode
+if exists('g:vscode')
+  Plug 'asvetliakov/vim-easymotion'
+  nmap <Leader>s <Plug>(easymotion-s2)
+  nmap <Leader>j <Plug>(easymotion-j)
+  nmap <Leader>k <Plug>(easymotion-k)
+else
+  " カラースキーム
+  Plug 'cocopon/pgmnt.vim'
+  Plug 'cocopon/iceberg.vim'
+
+  " 括弧の補完
+  Plug 'cohama/lexima.vim'
+
+  " Ctrl-E
+  Plug 'simeji/winresizer'
+
+  Plug 'itchyny/lightline.vim'
+  let g:lightline = {
+    \  'colorscheme': 'iceberg',
+    \} 
+
+  Plug 'easymotion/vim-easymotion'
+  nmap <Leader>s <Plug>(easymotion-overwin-f2)
+  nmap <Leader>j <Plug>(easymotion-j)
+  nmap <Leader>k <Plug>(easymotion-k)
+
+  " comment
+  Plug 'tomtom/tcomment_vim'
+
+  " vim-devicons
+  Plug 'ryanoasis/vim-devicons'
+
+  " ファイルツリー
+  Plug 'lambdalisue/fern.vim'
+  nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+
+  " fern アイコン
+  Plug 'lambdalisue/fern-renderer-devicons.vim'
+  let g:fern#renderer = "devicons"
+
+  " fzf
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  " fzf settings
+  let $FZF_DEFAULT_OPTS="--layout=reverse"
+  " let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+  let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'border': 'sharp' } }
+
+  nnoremap <silent> <leader>f :Files<CR>
+  nnoremap <silent> <leader>g :GFiles<CR>
+  nnoremap <silent> <leader>G :GFiles?<CR>
+  nnoremap <silent> <leader>b :Buffers<CR>
+  nnoremap <silent> <leader>h :History<CR>
+  nnoremap <silent> <leader>r :Rg<CR> nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+
+  " coc.nvim
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  " Symbol renaming.
+  nmap <leader>rn <Plug>(coc-rename)
+
+  " Formatting selected code.
+  xmap <leader>F  <Plug>(coc-format-selected)
+  nmap <leader>F  <Plug>(coc-format-selected)
+
+  " code runner
+  Plug 'thinca/vim-quickrun'
+  let g:quickrun_config = get(g:, 'quickrun_config', {})
+  let g:quickrun_config._ = {
+      \ 'outputter/buffer/opener': 'new',
+      \ 'outputter/buffer/into': 1,
+      \ 'outputter/buffer/close_on_empty': 1,
+      \ }
+  nmap <C-x><C-r> :QuickRun<cr>
+
 endif
+call plug#end()
 
-" Required:
-set runtimepath+=/home/m/.config/nvim/repos/github.com/Shougo/dein.vim
+if exists('g:vscode')
+  " comment
+  xmap gc  <Plug>VSCodeCommentary
+  nmap gc  <Plug>VSCodeCommentary
+  omap gc  <Plug>VSCodeCommentary
+  nmap gcc <Plug>VSCodeCommentaryLine
 
-" Required:
-if dein#load_state('/home/m/.config/nvim')
-  call dein#begin('/home/m/.config/nvim')
+  " tab移動
+  nmap <C-h> :call VSCodeNotify('workbench.action.previousEditor')<cr>
+  nmap <C-l> :call VSCodeNotify('workbench.action.nextEditor')<cr>
 
-  " Let dein manage dein
-  " Required:
-  call dein#add('/home/m/.config/nvim/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here:
-  " call dein#add('Shougo/neosnippet.vim')
-  " call dein#add('Shougo/neosnippet-snippets')
-
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/deol.nvim', { 'rev': '01203d4c9' })
-
-  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0}) 
-  call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1}) 
-  
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
+  nmap <leader>rn :call VSCodeNotify('editor.action.rename')<cr>
+  nmap <leader>gd :call VSCodeNotify('editor.action.revealDefinition')<cr>
+  nmap <leader>pd :call VSCodeNotify('editor.action.peekDefinition')<cr>
+else
+  colorscheme iceberg
 endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-"
-
-
-"End dein Scripts-------------------------
 
