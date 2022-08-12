@@ -221,7 +221,7 @@ else
       \ 'outputter/buffer/into': 1,
       \ 'outputter/buffer/close_on_empty': 1,
       \ }
-  nmap <C-x><C-r> :QuickRun<cr>
+  nmap \r :QuickRun<cr>
 
 endif
 call plug#end()
