@@ -350,17 +350,6 @@ require'packer'.startup(function()
   end
   }
 
-  -- buffer を tab に表示
-  use {
-    'akinsho/bufferline.nvim',
-    tag = "v2.*",
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('bufferline').setup{}
-    end
-  }
-  vim.keymap.set('n', '<C-l>', ':bn<CR>')
-  vim.keymap.set('n', '<C-h>', ':bp<CR>')
 end)
 
 
