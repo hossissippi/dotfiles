@@ -23,7 +23,6 @@ vim.o.pumheight=10
 vim.o.number = true
 vim.o.laststatus=2
 
--- set guifont=DroidSansMono\ Nerd\ Font
 vim.o.guifont='DroidSansMono Nerd Font'
 vim.o.termguicolors=true
 

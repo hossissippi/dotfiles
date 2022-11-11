@@ -264,16 +264,22 @@ require'packer'.startup(function()
   augroup END
   ]]
 
+  -- スニペット
+  use 'dcampos/nvim-snippy'
+  use 'dcampos/cmp-snippy'
+
   -- 3. completion (hrsh7th/nvim-cmp)
   local cmp = require("cmp")
   cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+        -- vim.fn["vsnip#anonymous"](args.body)
+        require 'snippy'.expand_snippet(args.body)
       end,
     },
     sources = {
       { name = "nvim_lsp" },
+      { name = 'snippy' },
       -- { name = "buffer" },
       -- { name = "path" },
     },
@@ -350,6 +356,6 @@ require'packer'.startup(function()
   end
   }
 
-end)
+  end)
 
 
