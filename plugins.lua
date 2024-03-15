@@ -123,9 +123,7 @@ not_vscode = {
       vim.opt.list = true
       vim.opt.listchars:append "space:⋅"
       vim.opt.listchars:append "eol:↴"
-      require("indent_blankline").setup {
-        show_end_of_line = true,
-        space_char_blankline = " ",
+      require("ibl").setup {
       }
     end,
   },
@@ -137,6 +135,8 @@ not_vscode = {
       vim.api.nvim_set_keymap('n', '<Space>f', "<cmd>lua require('fzf-lua').files()<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<Space>b', "<cmd>lua require('fzf-lua').buffers()<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<Space>/', "<cmd>lua require('fzf-lua').blines()<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Space>B', "<cmd>lua require('fzf-lua').lines()<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Space>F', "<cmd>lua require('fzf-lua').grep_project()<CR>", { noremap = true, silent = true })
     end,
   },
   'junegunn/fzf',
@@ -276,29 +276,7 @@ not_vscode = {
   {
     'williamboman/mason-lspconfig.nvim',
     config = function()
-      require("mason-lspconfig").setup({
-        automatic_installation = true,
-        ensure_installed = {
-          'lua_ls',
-          'gopls',
-          'golangci_lint_ls',
-          'clangd',
-          'cmake',
-          'cssls',
-          'dockerls',
-          'docker_compose_language_service',
-          'html',
-          'jsonls',
-          'jdtls',
-          'julials',
-          'quick_lint_js',
-          'ltex',
-          'marksman',
-          'jedi_language_server',
-          'tsserver',
-          'rust_analyzer'
-        },
-      })
+      require("mason-lspconfig").setup()
       require("mason-lspconfig").setup_handlers {
         function(server)
         require('lspconfig')[server].setup {
@@ -338,7 +316,7 @@ not_vscode = {
             require 'snippy'.expand_snippet(args.body)
           end,
         },
-        sources = { 
+        sources = {
           { name = "nvim_lsp" },
           { name = 'snippy' }, 
           { name = "buffer" },
@@ -390,7 +368,7 @@ not_vscode = {
   'petertriho/cmp-git',
   'hrsh7th/cmp-cmdline',
   -- nvim-cmp と連携して補完欄にアイコンを表示
-  'onsails/lspkind.nvim'
+  'onsails/lspkind.nvim',
 }
 
 if not vim.g.vscode then
@@ -400,4 +378,3 @@ if not vim.g.vscode then
 end
 
 require("lazy").setup(common)
-

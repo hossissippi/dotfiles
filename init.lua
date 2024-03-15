@@ -25,6 +25,8 @@ vim.o.laststatus=2
 
 vim.o.guifont='DroidSansMono Nerd Font'
 vim.o.termguicolors=true
+vim.o.winblend = 0
+vim.o.pumblend = 0
 
 -- set iminsert=0 imsearch=0
 vim.o.expandtab = true
@@ -111,8 +113,6 @@ vim.o.completeopt='menuone'
     vim.keymap.set('n', '<Space>gd', ":call VSCodeNotify('editor.action.revealDefinition')<cr>")
     vim.keymap.set('n', '<Space>rn', ":call VSCodeNotify('editor.action.peekDefinition')<cr>")
   end
-
--- vim.cmd[[autocmd BufWritePost plugins.lua PackerCompile]]
 
 -- lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
