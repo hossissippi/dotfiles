@@ -279,8 +279,8 @@ not_vscode = {
       require("mason-lspconfig").setup()
       require("mason-lspconfig").setup_handlers {
         function(server)
-        require('lspconfig')[server].setup {
-          on_attach = function(client, bufnr)
+          require('lspconfig')[server].setup {
+            on_attach = function(client, bufnr)
             -- keyboard shortcut
             vim.keymap.set('n', 'K',  '<cmd>lua vim.lsp.buf.hover()<CR>')
             vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
@@ -299,7 +299,7 @@ not_vscode = {
         }
         end
       }
-    end,
+      end
   },
   'neovim/nvim-lspconfig',
   {
