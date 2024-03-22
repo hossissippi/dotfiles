@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+apt-get update
+# install neovim
+python --version
+if [ $? -ne 0 ]; then
+  sudo apt-get install -y --no-install-recommends python3 python3-pip
+fi
+apt-get install -y software-properties-common git curl
+add-apt-repository -y ppa:neovim-ppa/unstable
+apt-get update
+apt-get install -y neovim
+
+if [ ! -d "$HOME"/.config/nvim ]; then
+  mkdir -p "$HOME"/.config/nvim
+fi
+
+dotfiles=$(dirname $0)
+ln -s "$dotfiles"/nvim/init.lua "$HOME"/.config/nvim/
+ln -s "$dotfiles"/nvim/lua/ "$HOME"/.config/nvim/
+ln -s "$dotfiles"/nvim/snippets/ "$HOME"/.config/nvim/
+
