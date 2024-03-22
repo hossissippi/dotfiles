@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 apt-get update
 # install neovim
@@ -11,12 +11,9 @@ add-apt-repository -y ppa:neovim-ppa/unstable
 apt-get update
 apt-get install -y neovim
 
-if [ ! -d "$HOME"/.config/nvim ]; then
-  mkdir -p "$HOME"/.config/nvim
+if [ ! -d "$HOME"/.config ]; then
+  mkdir -p "$HOME"/.config
 fi
 
 dotfiles=$(dirname $0)
-ln -s "$dotfiles"/nvim/init.lua "$HOME"/.config/nvim/
-ln -s "$dotfiles"/nvim/lua/ "$HOME"/.config/nvim/
-ln -s "$dotfiles"/nvim/snippets/ "$HOME"/.config/nvim/
-
+mv "$dotfiles"/nvim "$HOME"/.config/
