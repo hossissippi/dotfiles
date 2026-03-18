@@ -43,8 +43,24 @@
     LC_TIME = "ja_JP.UTF-8";
   };
 
+  systemd.targets.suspend.enable = false;
+  systemd.targets.sleep.enable = false;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore";
+    lidSwitchDocked = "ignore";
+    settings = {
+      Login = {
+        HandleSuspendKey = "ignore";
+        HandleHibernateKey = "ignore";
+        IdleAction = "ignore";
+      };
+    };
+  };
 
   # Enable the Budgie Desktop environment.
   services.xserver.displayManager.lightdm.enable = true;

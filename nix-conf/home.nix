@@ -18,5 +18,6 @@
     inputs.nixvim.homeModules.nixvim
     (import ./programs/nvim/nixvim.nix { pkgs = pkgs; })
     (import ./programs/tmux.nix { pkgs = pkgs; })
+    (import ./programs/direnv.nix { pkgs = pkgs; })
   ];
 }

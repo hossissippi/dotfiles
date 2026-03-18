@@ -13,5 +13,10 @@
       gs = "git status";
       gb = "git branch";
     };
+    initExtra = ''
+      bindkey '\^U' backward-kill-line;
+      bindkey '\^K' kill-whole-line;
+      eval "$(direnv hook zsh)"
+    '';
   };
 }
