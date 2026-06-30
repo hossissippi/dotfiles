@@ -10,7 +10,6 @@
   wsl.enable = true;
   wsl.defaultUser = "nixos";
 
-  # 元のdotfilesのhostnameはお好みで。"nixos"のままでも"hosh"に変えてもOK
   networking.hostName = "nixos";
 
   time.timeZone = "Asia/Tokyo";
