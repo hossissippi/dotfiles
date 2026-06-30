@@ -5,6 +5,7 @@ in
 {
   programs.nixvim = {
     enable = true;
+    nixpkgs.config.allowUnfree = true;
     colorschemes.rose-pine = {
       enable = true;
       settings = {

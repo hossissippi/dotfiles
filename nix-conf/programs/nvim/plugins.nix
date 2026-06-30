@@ -190,7 +190,7 @@
     lspconfig.enable = true;
     "blink-cmp" = {
       enable = true;
-      settingsExample = {
+      settings = {
         keymap.preset = "super-tab";
         snippets.preset = "luasnip";
         sources = {
