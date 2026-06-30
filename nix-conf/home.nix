@@ -1,6 +1,6 @@
 {pkgs, inputs, ...}: {
   home = rec {
-    username="hosh";
+    username="nixos";
     homeDirectory = "/home/${username}";
     stateVersion = "22.11";
   };
@@ -11,6 +11,7 @@
     eza
     httpie
     ripgrep
+    claude-code
   ];
 
   imports = [

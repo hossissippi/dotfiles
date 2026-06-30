@@ -8,6 +8,10 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: {
@@ -16,6 +20,14 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
+        ];
+      };
+      wsl = inputs.nixpkgs.lib.nixosSystem {
+	system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          inputs.nixos-wsl.nixosModules.wsl
+          ./configuration-wsl.nix
         ];
       };
     };
