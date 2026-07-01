@@ -12,6 +12,9 @@
     httpie
     ripgrep
     claude-code
+    fd
+    bat
+    jq
   ];
 
   imports = [
