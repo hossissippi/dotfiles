@@ -187,7 +187,38 @@
       enable = true;
     };
     "web-devicons".enable = true;
-    lspconfig.enable = true;
+    lsp = {
+      enable = true;
+      keymaps = {
+        lspBuf = {
+          "K"         = "hover";
+          "<space>ld" = "definition";
+          "<space>lD" = "declaration";
+          "<space>lt" = "type_definition";
+          "<space>li" = "implementation";
+          "<space>lr" = "references";
+          "<space>ln" = "rename";
+          "<space>la" = "code_action";
+          "<space>lf" = "format";
+        };
+        diagnostic = {
+          "<space>le" = "open_float";
+          "<space>lj" = "goto_next";
+          "<space>lk" = "goto_prev";
+        };
+      };
+      servers = {
+        nixd.enable = true;
+        lua_ls.enable = true;
+        pyright.enable = true;
+        ts_ls.enable = true;
+        rust_analyzer.enable = true;
+        clangd.enable = true;
+        jdtls.enable = true;
+        kotlin_language_server.enable = true;
+        gopls.enable = true;
+      };
+    };
     "blink-cmp" = {
       enable = true;
       settings = {
