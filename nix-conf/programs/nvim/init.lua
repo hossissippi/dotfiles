@@ -59,6 +59,12 @@ vim.api.nvim_set_keymap('i', 'jj', '<ESC>', {noremap = true, silent = true})
 
 -- 編集中のファイルが変更されたら自動で読み直す
 vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= "c" then vim.cmd("checktime") end
+  end,
+})
 -- バッファが編集中でもその他のファイルを開けるように
 vim.o.hidden = true
 -- 入力中のコマンドをステータスに表示する
