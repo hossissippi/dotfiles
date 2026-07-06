@@ -10,6 +10,8 @@
   wsl.enable = true;
   wsl.defaultUser = "nixos";
 
+  virtualisation.docker.enable = true;
+
   networking.hostName = "nixos";
 
   time.timeZone = "Asia/Tokyo";
@@ -35,7 +37,10 @@
   #   shell = pkgs.zsh;
   # };
 
-  users.users.nixos.shell = pkgs.zsh;
+  users.users.nixos = {
+    shell = pkgs.zsh;
+    extraGroups = [ "docker" ];
+  };
 
   nixpkgs.config.allowUnfree = true;
 
