@@ -9,6 +9,7 @@
 {
   wsl.enable = true;
   wsl.defaultUser = "nixos";
+  wsl.useWindowsDriver = true;
 
   virtualisation.docker.enable = true;
 
@@ -46,6 +47,10 @@
 
   environment.localBinInPath = true;
 
+  environment.variables = {
+    LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     tailscale
@@ -71,6 +76,7 @@
       enable = true;
       defaultEditor = true;
     };
+    nix-ld.enable = true;
     starship.enable = true;
     zsh.enable = true;
   };
