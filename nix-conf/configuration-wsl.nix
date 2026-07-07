@@ -48,12 +48,15 @@
   environment.localBinInPath = true;
 
   environment.variables = {
-    LD_LIBRARY_PATH = "/usr/lib/wsl/lib";
+    LD_LIBRARY_PATH = "/run/opengl-driver/lib:${pkgs.stdenv.cc.cc.lib}/lib:/usr/lib/wsl/lib";
   };
 
   environment.systemPackages = with pkgs; [
     vim
     tailscale
+    python313
+    python313Packages.pip
+    python313Packages.virtualenv
   ];
 
   services.tailscale.enable = true;
@@ -76,7 +79,15 @@
       enable = true;
       defaultEditor = true;
     };
-    nix-ld.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc.lib   # libstdc++.so.6
+        zlib
+        libGL
+        glib
+      ];
+    };
     starship.enable = true;
     zsh.enable = true;
   };
