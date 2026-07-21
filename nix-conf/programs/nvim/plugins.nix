@@ -71,9 +71,14 @@
               "aerial"
                 "dap-repl"
                 "neotest-summary"
+                "snacks_layout_box"
+                "snacks_picker_input"
+                "snacks_picker_list"
+                "snacks_picker_preview"
             ];
           };
-          globalstatus = true;
+          # true (laststatus=3) にすると snacks picker の先頭行が隠れるバグがある
+          globalstatus = false;
         };
         sections = {
           lualine_a = [ "mode" ];
