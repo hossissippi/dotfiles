@@ -22,6 +22,7 @@ vim.o.display='lastline'
 vim.o.pumheight=10
 vim.o.number = true
 vim.o.laststatus=2
+vim.o.showtabline=0  -- タブ行は出さない（herdr/tmux 側のタブバーと二重になるため）
 
  -- vim.o.guifont='DroidSansMono Nerd Font'
 vim.o.termguicolors=true

@@ -140,17 +140,6 @@
           }
           ];
         };
-        tabline = {
-          lualine_a = [
-          {
-            __unkeyed-1 = "buffers";
-            symbols = {
-              alternate_file = "";
-            };
-          }
-          ];
-          lualine_z = [ "tabs" ];
-        };
         winbar = {
           lualine_c = [
           {
