@@ -57,6 +57,17 @@
         ];
       };
     };
+    # パンくず（コードコンテキスト）
+    navic = {
+      enable = true;
+      settings = {
+        lsp.auto_attach = true;
+        highlight = true;
+        separator = " > ";
+        depth_limit = 5;
+        depth_limit_indicator = "..";
+      };
+    };
     lualine = {
       enable = true;
       settings = {
@@ -85,6 +96,11 @@
           lualine_b = [ "branch" ];
           lualine_c = [
             "filename"
+            {
+              __unkeyed-1 = "navic";
+              # navic 側で highlight = true にしているので lualine の背景に合わせる
+              color_correction = "static";
+            }
               "diff"
           ];
           lualine_x = [
@@ -114,44 +130,10 @@
             "fileformat"
             "filetype"
             ];
-          lualine_y = [
-          {
-            __unkeyed-1 = "aerial";
-            cond.__raw = ''
-              function()
-              local buf_size_limit = 1024 * 1024
-              if vim.api.nvim_buf_get_offset(0, vim.api.nvim_buf_line_count(0)) > buf_size_limit then
-                return false
-                  end
-
-                  return true
-                  end
-                  '';
-            sep = " ) ";
-            depth.__raw = "nil";
-            dense = false;
-            dense_sep = ".";
-            colored = true;
-          }
-          ];
+          lualine_y = [ "progress" ];
           lualine_z = [
           {
             __unkeyed-1 = "location";
-          }
-          ];
-        };
-        winbar = {
-          lualine_c = [
-          {
-            __unkeyed-1 = "navic";
-          }
-          ];
-          lualine_x = [
-          {
-            __unkeyed-1 = "filename";
-            newfile_status = true;
-            path = 3;
-            shorting_target = 150;
           }
           ];
         };
