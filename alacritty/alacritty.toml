@@ -1,0 +1,139 @@
+# Alacritty 設定（実体）
+# Windows 側の %APPDATA%\alacritty\alacritty.toml から import される。
+# 配置用スタブ: alacritty/windows/alacritty.toml
+
+[general]
+live_config_reload = true
+
+# --- シェル: WSL の NixOS を直接起動 ---
+[terminal.shell]
+program = "wsl.exe"
+args = ["-d", "NixOS", "--cd", "~"]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 8, y = 8 }
+dynamic_padding = true
+decorations = "full"
+decorations_theme_variant = "Dark"   # タイトルバーをダークに
+dynamic_title = true
+opacity = 0.92                       # 1.0 で不透明。下げるほど透ける
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+# 候補（live_config_reload が効くので family を書き換えて保存すれば即比較できる）:
+#   "UDEV Gothic 35NFLG"  日本語幅 3:5 / 行間広め。BIZ UDGothic ベースで線は太め
+#   "UDEV Gothic 35NF"    上記の行間標準版
+#   "UDEV Gothic NFLG"    日本語幅 1:2
+#   "FiraCode Nerd Font"  線は細いが日本語グリフを持たない
+size = 13
+normal      = { family = "UDEV Gothic 35NFLG", style = "Regular" }
+bold        = { family = "UDEV Gothic 35NFLG", style = "Bold" }
+italic      = { family = "UDEV Gothic 35NFLG", style = "Italic" }
+bold_italic = { family = "UDEV Gothic 35NFLG", style = "Bold Italic" }
+
+[cursor]
+style = { shape = "Block", blinking = "Never" }
+
+[selection]
+save_to_clipboard = true
+
+[colors]
+transparent_background_colors = true   # 背景色付きのセルにも opacity を適用
+
+# --- Rosé Pine (main) : nvim の colorscheme に合わせる ---
+[colors.primary]
+background = "#191724"
+# 前景色を落とすとコントラストが下がり、知覚上は細く見える。
+# Alacritty は ClearType 3x1 固定でラスタライズ自体は変えられないため、これが設定内で唯一効く手。
+#   "#e0def4"  rose-pine text（既定・最もはっきり）
+#   "#d0cce4"  text をわずかに沈めた中間色
+#   "#908caa"  rose-pine subtle（かなり控えめ。長時間には楽だがコントラスト比は落ちる）
+foreground = "#e0def4"
+
+[colors.cursor]
+cursor = "#524f67"
+text   = "#e0def4"
+
+[colors.vi_mode_cursor]
+cursor = "#524f67"
+text   = "#e0def4"
+
+[colors.selection]
+background = "#403d52"
+text       = "#e0def4"
+
+[colors.normal]
+black   = "#26233a"
+red     = "#eb6f92"
+green   = "#31748f"
+yellow  = "#f6c177"
+blue    = "#9ccfd8"
+magenta = "#c4a7e7"
+cyan    = "#ebbcba"
+white   = "#e0def4"
+
+[colors.bright]
+black   = "#6e6a86"
+red     = "#eb6f92"
+green   = "#31748f"
+yellow  = "#f6c177"
+blue    = "#9ccfd8"
+magenta = "#c4a7e7"
+cyan    = "#ebbcba"
+white   = "#e0def4"
+
+# --- キーバインド ---
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "N"
+mods = "Control|Shift"
+action = "CreateNewWindow"
+
+[[keyboard.bindings]]
+key = "F11"
+action = "ToggleFullscreen"
+
+[[keyboard.bindings]]
+key = "="
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "+"
+mods = "Control|Shift"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "NumpadAdd"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "-"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "NumpadSubtract"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "0"
+mods = "Control"
+action = "ResetFontSize"
