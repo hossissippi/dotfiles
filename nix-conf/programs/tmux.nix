@@ -24,14 +24,16 @@
       # --- マウス操作 ---
       set -g mouse on
 
-      # --- クリップボード（Linux/X11の場合） ---
+      # --- クリップボード（OSC52 で端末経由。xclip 等の外部コマンド不要） ---
       setw -g mode-keys vi
-      bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -sel clip -i"
+      set -g set-clipboard on
+      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
       # --- 便利オプション ---
       set -g history-limit 10000
       setw -g aggressive-resize on
-      set-option -g default-terminal "screen-256color"
+      set-option -g default-terminal "tmux-256color"
+      set-ga terminal-overrides ",xterm-256color:RGB"
   '';
   };
 }
