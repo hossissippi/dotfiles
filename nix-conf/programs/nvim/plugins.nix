@@ -77,7 +77,7 @@
                 "snacks_picker_preview"
             ];
           };
-          # true (laststatus=3) にすると snacks picker の先頭行が隠れるバグがある
+          # true (laststatus=3) にすると snacks picker の先頭行が隠れるバグがある (2.31.0 時点)
           globalstatus = false;
         };
         sections = {
