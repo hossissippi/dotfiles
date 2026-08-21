@@ -14,14 +14,21 @@ Windows 側には import 1 行のスタブしか置かないため、`alacritty.
 
 ## セットアップ（新環境／再設定時）
 
+Windows ユーザー名を直書きしないよう、`%APPDATA%` から解決する。
+
 ```bash
-mkdir -p /mnt/c/Users/hoshi/AppData/Roaming/alacritty
-cp alacritty/windows/alacritty.toml \
-   /mnt/c/Users/hoshi/AppData/Roaming/alacritty/alacritty.toml
+APPDATA_WSL=$(wslpath "$(cmd.exe /c 'echo %APPDATA%' 2>/dev/null | tr -d '\r')")
+mkdir -p "$APPDATA_WSL/alacritty"
+cp alacritty/windows/alacritty.toml "$APPDATA_WSL/alacritty/alacritty.toml"
 ```
 
-Windows ユーザー名や WSL ディストリ名 (`NixOS`) が違う環境では、
-スタブ内の UNC パスを合わせて書き換えること。
+スタブ内の UNC パスは WSL ディストリ名と Linux 側ユーザー名を含むため、
+環境が違う場合は書き換えること。正しい値は次で得られる。
+
+```bash
+wslpath -w "$(pwd)/alacritty"
+# 例: \\wsl.localhost\NixOS\home\nixos\dotfiles\alacritty
+```
 
 ## 前提
 

@@ -1,5 +1,5 @@
 # このファイルは Windows 側の下記パスに配置するスタブ:
-#   C:\Users\hoshi\AppData\Roaming\alacritty\alacritty.toml
+#   %APPDATA%\alacritty\alacritty.toml
 # 実体は dotfiles リポジトリ側にあり、UNC パス経由で読み込む。
 
 [general]
