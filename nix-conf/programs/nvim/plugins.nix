@@ -186,6 +186,12 @@
       servers = {
         nixd.enable = true;
         lua_ls.enable = true;
+        # Python は ruff と pyright で役割分担する。
+        #   ruff    : 構文エラー・lint（実測 7ms）
+        #   pyright : 型チェック・補完・定義ジャンプ（実測 460ms〜）
+        # 構文エラーを見るのに pyright の型推論を待たされていたため ruff を追加した。
+        # hover の競合は init.lua の LspAttach で pyright 側に寄せている。
+        ruff.enable = true;
         pyright.enable = true;
         ts_ls.enable = true;
         rust_analyzer.enable = true;
@@ -244,7 +250,8 @@
             "vim.lsp.util.convert_input_to_markdown_lines" = true;
             "vim.lsp.util.stylize_markdown" = true;
           };
-          progress.enabled = false;
+          # サーバーが計算中かどうかが分からないと遅延の切り分けができないので出す
+          progress.enabled = true;
         };
         presets = {
           bottom_search = true;

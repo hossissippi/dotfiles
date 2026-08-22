@@ -115,6 +115,28 @@ local yank_group = vim.api.nvim_create_augroup("my_nvim_rc", { clear = true })
   }
 )
 
+-- 診断（LSP）の表示設定
+-- Neovim 0.12 の既定は virtual_text = false / updatetime = 4000 で、
+-- 診断が届いても行末に何も出ず、届いたことにも気づけない。
+vim.o.updatetime = 250
+vim.diagnostic.config({
+  virtual_text = { spacing = 2, prefix = "\u{25cf}" },
+  severity_sort = true,
+  float = { border = "rounded", source = true },
+})
+
+-- ruff と pyright を併用しているので hover が競合する。
+-- ruff の hover は情報量が乏しいため pyright 側に寄せる。
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("my_lsp_attach", { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.name == "ruff" then
+      client.server_capabilities.hoverProvider = false
+    end
+  end,
+})
+
 -- vscode 用の設定
 if vim.g.vscode then
   -- comment
