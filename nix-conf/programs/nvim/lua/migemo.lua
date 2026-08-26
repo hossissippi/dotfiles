@@ -7,8 +7,16 @@
 -- transform に渡る filter は picker:find() 内で clone されたものなので、
 -- 入力欄の表示はローマ字のまま変わらない。
 --
--- 常時有効にはしない。上の例のとおり同じ読みの無関係な語（開写像・膾炙）を
--- すべて拾うし、1〜2 文字だと候補が数百件に膨らむ。picker 内で <A-j> トグルする。
+-- 既定はオン。picker 内で <A-j> を押すとオフになる（有効時はタイトルに "あ"）。
+--
+-- 常時オンで問題ないのは、辞書から英単語キーを抜いてあるため（migemo-dict.nix）。
+-- コード用語を変換しても実在しない読みにしかならず、余計なヒットが出ない。
+-- dotfiles 全体を grep して実測した増加分:
+--   function 65→65  config 47→47  enable 95→95  keymap 77→77  nvim 65→65   +0
+--   made 0→6  take 1→5  date 7→12                                          +6 以下
+-- 短い入力ではさすがに増える（ka 22→190、key 152→187）が、"ka" で止めずに
+-- "kaisha" まで打てば絞られる。厳密に引きたいときは <A-j> でオフにする。
+-- rg の実行時間は 3ms → 6ms（パターン 1204 バイト時）で、実用上は変わらない。
 --
 -- grep（<Space>f）と lines（<Space>/）で絞り込む主体が違う。grep は rg、
 -- lines は自前の finder。どちらも filter.search に変換結果を入れる。詳細は各関数にて。
@@ -157,7 +165,7 @@ do
   ---@param transform fun(picker:table, filter:table)
   function M.picker_opts(transform)
     return {
-      migemo = false,
+      migemo = true,
       toggles = { migemo = { icon = "あ" } },
       win = { input = { keys = { ["<A-j>"] = { "toggle_migemo", mode = { "i", "n" } } } } },
       filter = { transform = guard(transform) },
@@ -166,8 +174,7 @@ do
 
 end
 
---- migemo トグル付きの grep。<A-j> で切り替え、有効時はタイトルに "あ" が出る。
---- 既定はオフなので、通常のコード検索の挙動は今までと変わらない。
+--- migemo 付きの grep。既定はオンで、<A-j> でオフにできる。
 ---
 --- grep は rg にパターンを渡すので filter.search を書き換える。transform に渡る
 --- filter は picker:find() 内で clone されたものなので、入力欄の表示は変わらない。
@@ -189,7 +196,7 @@ function M.grep(opts)
     opts or {}))
 end
 
---- migemo トグル付きの lines（バッファ内検索）。操作は MigemoGrep と同じ <A-j>。
+--- migemo 付きの lines（バッファ内検索）。既定はオンで、操作は M.grep と同じ <A-j>。
 ---
 --- 絞り込みは finder 側でやる。matcher の regex モードは使わない。
 ---

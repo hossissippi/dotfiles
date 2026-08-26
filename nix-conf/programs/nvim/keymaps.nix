@@ -19,7 +19,7 @@
     };
   }
   {
-    # migemo トグル付き grep。既定はオフで、picker 内 <A-j> でローマ字→日本語検索
+    # ローマ字のまま日本語も引ける grep。既定オン、picker 内 <A-j> でオフ
     key = "<space>f";
     mode = [ "n" ];
     action = "<cmd>lua require('migemo').grep()<CR>";
@@ -29,7 +29,7 @@
     };
   }
   {
-    # grep と同じく picker 内 <A-j> で migemo トグル
+    # grep と同じく既定オン、picker 内 <A-j> でオフ
     key = "<space>/";
     mode = [ "n" ];
     action = "<cmd>lua require('migemo').lines()<CR>";
