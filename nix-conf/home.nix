@@ -16,6 +16,8 @@
     bat
     jq
     herdr
+    # nvim の picker でローマ字のまま日本語を grep するのに使う
+    cmigemo
   ];
 
   imports = [

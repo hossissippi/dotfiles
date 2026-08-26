@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   plugins = (import ./plugins.nix { inherit pkgs; });
+  migemoDict = (import ./migemo-dict.nix { inherit pkgs; });
 in
 {
   programs.nixvim = {
@@ -30,10 +31,16 @@ in
       };
     };
     colorscheme = "rose-pine";
-    globals.mapleader = " ";
+    globals = {
+      mapleader = " ";
+      # lua/migemo.lua が読む辞書。英単語キーを落としてある（migemo-dict.nix）
+      migemo_dict = "${migemoDict}/share/migemo/utf-8/migemo-dict";
+    };
     plugins = plugins.plugins;
     extraPlugins = plugins.extraPlugins;
     keymaps = (import ./keymaps.nix);
+    # runtimepath 上の lua/ に置くので require("migemo") で引ける
+    extraFiles."lua/migemo.lua".source = ./lua/migemo.lua;
     extraConfigLua = builtins.readFile ./init.lua;
   };
 }

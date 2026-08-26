@@ -19,18 +19,20 @@
     };
   }
   {
+    # migemo トグル付き grep。既定はオフで、picker 内 <A-j> でローマ字→日本語検索
     key = "<space>f";
     mode = [ "n" ];
-    action = "<cmd>lua Snacks.picker.grep()<CR>";
+    action = "<cmd>lua require('migemo').grep()<CR>";
     options = {
       silent = true;
       noremap = true;
     };
   }
   {
+    # grep と同じく picker 内 <A-j> で migemo トグル
     key = "<space>/";
     mode = [ "n" ];
-    action = "<cmd>lua Snacks.picker.lines()<CR>";
+    action = "<cmd>lua require('migemo').lines()<CR>";
     options = {
       silent = true;
       noremap = true;
