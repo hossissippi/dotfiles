@@ -263,4 +263,23 @@
       noremap = true;
     };
   }
+  # minimap
+  {
+    key = "<space>mm";
+    mode = [ "n" ];
+    action = "<cmd>lua MiniMap.toggle()<CR>";
+    options = {
+      silent = true;
+      noremap = true;
+    };
+  }
+  {
+    key = "<space>mf";
+    mode = [ "n" ];
+    action = "<cmd>lua MiniMap.toggle_focus()<CR>";
+    options = {
+      silent = true;
+      noremap = true;
+    };
+  }
 ]

@@ -141,6 +141,36 @@
     diffview = {
       enable = true;
     };
+    # ミニマップ
+    mini = {
+      enable = true;
+      modules = {
+        map = {
+          window = {
+            side = "right";
+            width = 10;
+            winblend = 20;
+            show_integration_count = false;
+          };
+          symbols = {
+            # 既定の block('3x2') は Sextant (U+1FB00〜, Unicode 13) を使うが、
+            # UDEV Gothic 35NFLG に1文字も入っておらず豆腐になる（cmap 実測 0/60）。
+            # 点字の dot('4x2') も同様に未収録（0/256）。
+            # Quadrant (U+2596〜) は収録済み（10/10）なので 2x2 を使う。
+            encode.__raw = "require('mini.map').gen_encode_symbols.block('2x2')";
+            scroll_line = "█";
+            scroll_view = "┃";
+          };
+          integrations.__raw = ''
+            {
+              require('mini.map').gen_integration.builtin_search(),
+              require('mini.map').gen_integration.diagnostic(),
+              require('mini.map').gen_integration.gitsigns(),
+            }
+          '';
+        };
+      };
+    };
     "web-devicons".enable = true;
     lsp = {
       enable = true;
