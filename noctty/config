@@ -1,0 +1,53 @@
+# Noctty 設定
+#
+# 実体は dotfiles で管理し、%LOCALAPPDATA%\noctty\config.ghostty へコピーして使う。
+# コピーは ./install.sh。詳細は README.md。
+# 反映は ctrl+shift+, （reload_config）またはウィンドウを開き直す。
+
+# --- シェル -------------------------------------------------------------
+# Noctty で WSL を既定シェルにするには command を明示する必要がある
+# （プロファイルピッカーから選ぶだけなら不要）。
+#
+# `direct:` を付ける理由: 引数付きの command は既定で `/bin/sh -c` に渡される仕様
+# だが、Windows に /bin/sh は無い。direct: を付けるとシェルを経由せず直接起動する。
+# `--cd ~` の ~ はシェルではなく wsl.exe 自身が解釈するので direct: でも効く。
+#
+# `-d NixOS` が必要な理由: WSL の既定ディストリは Ubuntu-22.04 になっているため、
+# 単なる `wsl.exe` では Ubuntu が起動する。
+command = direct:wsl.exe -d NixOS --cd ~
+
+# --- フォント -----------------------------------------------------------
+font-family = UDEV Gothic 35NFLG
+font-size = 12
+
+# --- 配色 ---------------------------------------------------------------
+# Noctty は 486 個のテーマを同梱しているので theme が使える
+# （GhostInTheWSL は同梱しておらず palette 直書きが必要だった）。
+theme = Rose Pine
+
+# --- 見た目（クロームを出さない） ---------------------------------------
+# タブバーを出さない。タブ自体は tab overview やキーバインドから使える。
+# このキーは本家では GTK 専用だが、Noctty は Windows 向けに実装している
+# （+show-config --default --docs に "Supported in the Windows-only fork."）。
+window-show-tab-bar = never
+# スクロールバーのウィジェットも出さない。スクロール自体は効く。
+scrollbar = never
+
+background-opacity = 0.92
+window-padding-x = 8
+window-padding-y = 8
+
+# --- ベル（音を鳴らさない） ---------------------------------------------
+# no-system   : OS のシステム音を鳴らさない
+# no-audio    : 音声ファイルの再生もしない
+# no-attention: タスクバーの点滅など OS への注意喚起もしない
+# title       : タイトルに 🔔 を付ける視覚通知だけ残す
+bell-features = no-system,no-audio,no-attention,title,no-border
+
+# --- その他 -------------------------------------------------------------
+# カーソルを点滅させない
+cursor-style-blink = false
+
+copy-on-select = false
+mouse-hide-while-typing = true
+confirm-close-surface = true
