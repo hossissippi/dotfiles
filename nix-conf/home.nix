@@ -13,7 +13,6 @@
     ripgrep
     claude-code
     fd
-    bat
     jq
     herdr
     # nvim の picker でローマ字のまま日本語を grep するのに使う
@@ -26,5 +25,7 @@
     (import ./programs/nvim/nixvim.nix { pkgs = pkgs; })
     (import ./programs/tmux.nix { pkgs = pkgs; })
     (import ./programs/direnv.nix { pkgs = pkgs; })
+    (import ./programs/git.nix { pkgs = pkgs; })
+    (import ./programs/bat.nix { pkgs = pkgs; })
   ];
 }
