@@ -74,8 +74,8 @@ vim.o.showcmd = true
 vim.o.virtualedit = 'onemore'
 -- スマートインデント
 vim.o.smartindent = true
--- ビープ音を可視化
-vim.o.visualbell = true
+-- ベルを一切鳴らさない（visualbell の画面フラッシュも出さない）
+vim.o.belloff = 'all'
 -- コマンドラインの補完
 vim.o.wildmode = 'list:longest'
 
